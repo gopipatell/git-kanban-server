@@ -5,6 +5,10 @@ class TasksController < ApplicationController
   end
 
   def create
+    task = Task.create task_params
+    task.user_id = 3; #TODO
+    task.save
+    render :json => task
   end
 
   def show
@@ -15,4 +19,11 @@ class TasksController < ApplicationController
 
   def destroy
   end
+
+
+  private
+  def task_params
+    params.require(:task).permit(:title, :description, :status, :repository_id)
+  end
+
 end
