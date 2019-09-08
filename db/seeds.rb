@@ -10,7 +10,7 @@
 User.destroy_all
 puts "Creating Users..."
 
-u1 = User.create :name => "Gopi", :email => "gopi@ga.com", :github_name => "gopipatell"
+# u1 = User.create :name => "Gopi", :email => "gopi@ga.com", :github_name => "gopipatell"
 u2 = User.create :name => "Paulina", :email => "paulina@ga.com", :github_name => "pkijowska"
 
 Repository.destroy_all
@@ -35,8 +35,8 @@ puts "Creating Associations..."
 r1.tasks << t1
 r1.tasks << t2
 
-u1.tasks << t1
+u2.tasks << t1
 u2.tasks << t2
 
-u1.repositories << r1
+u2.repositories << r1
 u2.repositories << r2

@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   resources :tasks
   resources :repositories
 
+  get '/auth/github', to: 'authentication#github', format: false
+
 end

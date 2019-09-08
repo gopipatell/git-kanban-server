@@ -1,6 +1,9 @@
 class RepositoriesController < ApplicationController
+
+  before_action :authenticate_user!
+
   def index
-    @repositories = Repository.all
+    @repositories = Repository.find_by_user_id @current_user.id
     render formats: :json
   end
 

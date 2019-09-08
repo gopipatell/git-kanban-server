@@ -27,6 +27,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 gem 'knock'
 gem 'jwt'
+gem 'faraday'
 
 gem 'pry-rails'
 # Reduces boot times through caching; required in config/boot.rb
@@ -36,6 +37,7 @@ gem 'rack-cors', :require => 'rack/cors'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'dotenv-rails'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
