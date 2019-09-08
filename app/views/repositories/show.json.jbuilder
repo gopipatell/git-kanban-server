@@ -11,6 +11,7 @@ json.set! :repository do
   json.set! :tasks do
     json.array! tasks do |t|
       json.id t.id
+      json.title t.title
       json.description t.description
       json.status t.status
       json.due_date t.due_date

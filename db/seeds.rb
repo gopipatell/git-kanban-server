@@ -23,9 +23,9 @@ r2 = Repository.create :name => "mind-meet", :description => "sample data", :lan
 Task.destroy_all
 puts "Creating Task..."
 
-t1 = Task.create :description => "This is a sample task", :status => "1", :due_date => "2019-09-01", :task_index => "1"
+t1 = Task.create :title => "This is a sample task", :description => "Sample task description...", :status => "1", :due_date => "2019-09-01", :task_index => "1"
 
-t2 = Task.create :description => "This is a sample task2", :status => "2", :due_date => "2019-09-21", :task_index => "2"
+t2 = Task.create :title => "This is a sample task2", :description => "description is very long..", :status => "2", :due_date => "2019-09-21", :task_index => "2"
 
 
 
