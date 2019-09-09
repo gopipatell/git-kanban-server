@@ -13,5 +13,7 @@
 
 class User < ApplicationRecord
   has_many :tasks
-  has_many :repositories
+  has_many :collaborators
+  has_many :repositories, through: :collaborators
+
 end

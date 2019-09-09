@@ -38,5 +38,4 @@ r1.tasks << t2
 u2.tasks << t1
 u2.tasks << t2
 
-u2.repositories << r1
-u2.repositories << r2
+u2.repositories << r1 << r2

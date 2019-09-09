@@ -18,4 +18,15 @@ json.set! :repository do
       json.user t.user
     end
   end
+
+  users = @repository.users
+  json.set! :users do
+    json.array! users do |u|
+      json.id u.id
+      json.name u.name
+      json.github_name u.github_name
+      json.image u.image
+    end
+  end
+
 end

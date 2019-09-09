@@ -12,6 +12,7 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  title         :string
+#  github_id     :string
 #
 
 class Task < ApplicationRecord
