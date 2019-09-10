@@ -1,6 +1,7 @@
 json.array! @repositories do |r|
   json.id r.id
   json.name r.name
+  json.namewithowner r.namewithowner
   json.description r.description
   json.language r.language
   json.homepage r.homepage

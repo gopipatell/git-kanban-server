@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     tasks = Task.all
     render :json => tasks
@@ -6,7 +8,7 @@ class TasksController < ApplicationController
 
   def create
     task = Task.create task_params
-    task.user_id = 3; #TODO
+    task.user_id = @current_user.id
     task.save
     render :json => task
   end

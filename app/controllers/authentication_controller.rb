@@ -1,22 +1,56 @@
 class AuthenticationController < ApplicationController
+
   def github
     authenticator = Authenticator.new
-    user_info = authenticator.github(params[:code])
 
-    github_name = user_info[:github_name]
-    name = user_info[:name]
-    image = user_info[:image]
+    access_code = authenticator.get_access_code(params[:code])
 
-    # Generate token...
-    token = TokiToki.encode(github_name, name, image)
-    # ... create user if it doesn't exist...
-    User.where(:github_name => github_name).first_or_create!(
-      name: name,
-      github_name: github_name,
-      image: image
+    graphql = authenticator.get_github_graphql(access_code)
+
+    user = graphql['data']['viewer']
+    repositories = user['repositories']['nodes']
+
+    u = User.where(:github_name => user['login']).first_or_create!(
+       name: user['name'],
+       github_name: user['login'],
+       image: user['avatarUrl']
     )
 
-    # ... and redirect to client app.
+    repositories.each do |r|
+      puts "REPO NAME: [#{r['name']}]"
+
+      repo = Repository.where(:namewithowner =>
+      # save each repository of user
+       r['nameWithOwner']).first_or_create!(
+          name: r['name'],
+          namewithowner: r['nameWithOwner'],
+          description: r['description'],
+          homepage: r['homepageUrl']
+      )
+
+      # save collaborator of repository
+      Collaborator.where(:user_id => u['id'], :repository_id => repo['id']).first_or_create!(
+        user_id: u['id'],
+        repository_id: repo['id']
+      )
+
+      # save each issues from the repository
+      r['issues']['nodes'].each do |issue|
+        Task.where(:github_id => issue['id']).first_or_create!(
+          github_id: issue['id'],
+          title: issue['title'],
+          description: issue['bodyText'],
+          repository_id: repo.id,
+          user_id: u.id,
+          status: "1"
+        )
+
+      end
+
+    end
+
+    token = TokiToki.encode(user['login'], user['name'], user['avatarUrl'])
+
     redirect_to "#{issuer}/silent_renew.html?token=#{token}"
   rescue StandardError => error
     redirect_to "#{issuer}?error=#{error.message}"
