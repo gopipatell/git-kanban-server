@@ -34,6 +34,9 @@ class AuthenticationController < ApplicationController
         repository_id: repo['id']
       )
 
+
+      task_count = Task.where(:status => "1", :repository_id => repo.id).count
+
       # save each issues from the repository
       r['issues']['nodes'].each do |issue|
         Task.where(:github_id => issue['id']).first_or_create!(
@@ -42,9 +45,10 @@ class AuthenticationController < ApplicationController
           description: issue['bodyText'],
           repository_id: repo.id,
           user_id: u.id,
-          status: "1"
+          status: "1",
+          task_index: task_count
         )
-
+        task_count += 1
       end
 
     end

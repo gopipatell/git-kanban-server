@@ -8,6 +8,8 @@ class TasksController < ApplicationController
 
   def create
     task = Task.create task_params
+
+    task.task_index = Task.where(:status => task.status, :repository_id => task.repository_id).count
     task.user_id = @current_user.id
     task.save
     render :json => task

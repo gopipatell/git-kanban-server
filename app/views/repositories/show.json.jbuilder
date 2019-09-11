@@ -16,6 +16,7 @@ json.set! :repository do
       json.status t.status
       json.due_date t.due_date
       json.user t.user
+      json.task_index t.task_index
     end
   end
 

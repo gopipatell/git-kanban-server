@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   resources :repositories
 
   get '/auth/github', to: 'authentication#github', format: false
+  post '/repositories/:id/update-task-index', to: 'repositories#update_task_index', as: 'update_task_index', format: false
 
 end
