@@ -22,6 +22,12 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    task = Task.find params[:id]
+
+    if @current_user.repositories.include? task.repository
+      task.delete
+      render :json => task  
+    end
   end
 
 
